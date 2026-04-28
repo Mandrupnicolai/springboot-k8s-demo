@@ -1,0 +1,7 @@
+# Global owner — all files require review from a maintainer
+*   @YOUR_GITHUB_USERNAME
+
+# Helm / infra changes require infra review
+helm/   @YOUR_GITHUB_USERNAME
+k8s/    @YOUR_GITHUB_USERNAME
+.github/workflows/  @YOUR_GITHUB_USERNAME
