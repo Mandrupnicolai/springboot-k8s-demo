@@ -116,6 +116,7 @@ jobs:
   # -- Job 4: Deploy (main only, manual environment gate) ---------------------
   deploy:
     name: Deploy to production
+    if: false  # Requires a live cluster
     needs: [docker, helm-lint]
     runs-on: ubuntu-latest
     environment: production
@@ -141,3 +142,4 @@ jobs:
             --set secret.DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
             --wait \
             --timeout 5m
+
