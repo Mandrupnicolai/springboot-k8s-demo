@@ -36,7 +36,7 @@
 - **Actuator** health probes wired to Kubernetes liveness / readiness endpoints
 - **Multi-stage distroless Docker image** — minimal attack surface, non-root runtime
 - **Helm chart** — fully parameterised, no hardcoded values
-- **GitHub Actions CI/CD** — build ? test ? coverage gate ? Docker push (GHCR) ? Helm deploy
+- **GitHub Actions CI/CD** — build ? test ? coverage gate ? Docker push (GHCR) ? Helm lint
 - **JaCoCo** line coverage enforced at = 80 % in CI
 - **Codecov** integration for PR coverage comments
 
@@ -45,22 +45,22 @@
 ## Architecture
 +----------+     HTTP     +-----------------------------------------+
 ¦  Client  ¦ ----------?  ¦  Ingress (nginx)                        ¦
-+----------+             +-----------------------------------------+
++----------+              +-----------------------------------------+
 ¦
-+--------------?--------------+
++---------------?-------------+
 ¦  TaskController  (:8080)    ¦
 ¦  /api/v1/tasks              ¦
 +-----------------------------+
 ¦
-+--------------?--------------+
++---------------?-------------+
 ¦  TaskService                ¦
 +-----------------------------+
 ¦
-+--------------?--------------+
++---------------?-------------+
 ¦  TaskRepository (JPA)       ¦
 +-----------------------------+
 ¦
-+--------------?--------------+
++---------------?-------------+
 ¦  PostgreSQL  (:5432)        ¦
 +-----------------------------+
 ---
@@ -110,6 +110,9 @@ In Kubernetes these are sourced from `ConfigMap` (non-sensitive) and `Secret` (c
 
 ## Kubernetes & Helm deployment
 
+> **Note:** The deploy stage in CI requires a configured Kubernetes cluster and a `KUBECONFIG` secret.
+> The job is currently disabled. See [Enabling deployment](#enabling-deployment) below to activate it.
+
 ```bash
 # 1. Add your image registry credentials (if private)
 kubectl create secret docker-registry ghcr-secret \
@@ -128,6 +131,15 @@ helm upgrade --install k8s-demo helm/springboot-k8s-demo \
 kubectl rollout status deployment/k8s-demo
 ```
 
+### Enabling deployment
+
+1. Provision a Kubernetes cluster (e.g. [Civo](https://www.civo.com), [DigitalOcean](https://www.digitalocean.com), or local [kind](https://kind.sigs.k8s.io/)).
+2. Download the kubeconfig from your provider.
+3. Add it as a GitHub secret named `KUBECONFIG`.
+4. Add your database password as a GitHub secret named `DB_PASSWORD`.
+5. In `.github/workflows/ci-cd.yml`, remove the `if: false` line from the deploy job.
+6. Create a `production` environment under **Settings ? Environments** and enable the manual approval gate.
+
 ---
 
 ## CI/CD pipeline
@@ -137,7 +149,7 @@ kubectl rollout status deployment/k8s-demo
 | **Build & Test** | Every push / PR | `mvn verify`, JaCoCo coverage gate (= 80 %) |
 | **Docker** | Push to `main` | Multi-arch image ? GHCR |
 | **Helm lint** | Every push / PR | `helm lint` + dry-run template |
-| **Deploy** | Push to `main` | `helm upgrade --install` with manual environment gate |
+| **Deploy** | Disabled — requires `KUBECONFIG` secret | `helm upgrade --install` with manual approval gate |
 
 ---
 
@@ -158,7 +170,7 @@ kubectl rollout status deployment/k8s-demo
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).  
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 Please open an issue before submitting a large pull request.
 
 ---
