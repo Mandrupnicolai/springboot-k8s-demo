@@ -1,0 +1,13 @@
+apiVersion: v2
+name: springboot-k8s-demo
+description: Helm chart for the Spring Boot Kubernetes demo
+type: application
+version: 0.1.0
+appVersion: "0.0.1-SNAPSHOT"
+keywords:
+  - spring-boot
+  - kubernetes
+  - java
+maintainers:
+  - name: Your Name
+    email: you@example.com

@@ -1,0 +1,50 @@
+replicaCount: 2
+
+image:
+  repository: ghcr.io/YOUR_GITHUB_USERNAME/springboot-k8s-demo
+  pullPolicy: Always
+  tag: ""   # defaults to Chart.appVersion
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+ingress:
+  enabled: true
+  className: nginx
+  host: k8s-demo.example.com
+  path: /
+  pathType: Prefix
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+env:
+  APP_NAME: springboot-k8s-demo
+  DB_HOST: postgres-service
+  DB_PORT: "5432"
+  DB_NAME: taskdb
+  DB_POOL_SIZE: "10"
+  LOG_LEVEL: INFO
+  SERVER_PORT: "8080"
+
+secret:
+  DB_USER: postgres
+  DB_PASSWORD: changeme   # Override with --set or a values override file
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 70
+
+podSecurityContext:
+  runAsNonRoot: true
+  seccompProfile:
+    type: RuntimeDefault
