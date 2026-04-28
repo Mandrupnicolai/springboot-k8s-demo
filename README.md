@@ -2,7 +2,7 @@
 
 > A production-grade Spring Boot 3.3 REST API containerised with Docker and deployed to Kubernetes via Helm — built to demonstrate clean architecture, CI/CD best practices, and cloud-native observability.
 
-[![CI/CD](https://github.com/YOUR_GITHUB_USERNAME/springboot-k8s-demo/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Mandrupnicolai/springboot-k8s-demo/actions/workflows/ci-cd.yml)
+[![CI/CD](https://github.com/Mandrupnicolai/springboot-k8s-demo/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Mandrupnicolai/springboot-k8s-demo/actions/workflows/ci-cd.yml)
 [![codecov](https://codecov.io/gh/Mandrupnicolai/springboot-k8s-demo/branch/main/graph/badge.svg)](https://codecov.io/gh/Mandrupnicolai/springboot-k8s-demo)
 [![Java](https://img.shields.io/badge/Java-21-007396?logo=java)](https://adoptium.net)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3-6DB33F?logo=springboot)](https://spring.io/projects/spring-boot)
