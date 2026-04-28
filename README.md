@@ -43,27 +43,22 @@
 ---
 
 ## Architecture
-┌──────────┐     HTTP     ┌─────────────────────────────────────────┐
-│  Client  │ ──────────▶  │  Ingress (nginx)                        │
-└──────────┘              └───────────────┬─────────────────────────┘
-│
-┌───────────────▼─────────────┐
-│  TaskController  (:8080)    │
-│  /api/v1/tasks              │
-└───────────────┬─────────────┘
-│
-┌───────────────▼─────────────┐
-│  TaskService                │
-└───────────────┬─────────────┘
-│
-┌───────────────▼─────────────┐
-│  TaskRepository (JPA)       │
-└───────────────┬─────────────┘
-│
-┌───────────────▼─────────────┐
-│  PostgreSQL  (:5432)        │
-└─────────────────────────────┘
----
+
+```mermaid
+flowchart TD
+    Client([🌐 Client])
+    Ingress[⚙️ Ingress / nginx]
+    Controller["🎮 TaskController\n/api/v1/tasks · :8080"]
+    Service["🔧 TaskService"]
+    Repository["🗄️ TaskRepository\nSpring Data JPA"]
+    DB[("🐘 PostgreSQL\n:5432")]
+
+    Client -->|HTTP| Ingress
+    Ingress --> Controller
+    Controller --> Service
+    Service --> Repository
+    Repository --> DB
+```
 
 ## Getting started
 
