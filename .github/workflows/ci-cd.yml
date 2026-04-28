@@ -28,7 +28,7 @@ jobs:
           cache: maven
 
       - name: Build & run tests with coverage
-        run: mvn verify -P ci --no-transfer-progress
+        run: mvn verify --no-transfer-progress
 
       - name: Upload JaCoCo report
         uses: actions/upload-artifact@v4
@@ -113,14 +113,14 @@ jobs:
             --set secret.DB_PASSWORD=ci-placeholder \
             --debug
 
-  # -- Job 4: Deploy (main only, manual environment gate) ---------------------
+  # -- Job 4: Deploy (disabled — requires a live Kubernetes cluster) -----------
+  # To enable: add a KUBECONFIG secret and remove the `if: false` line below.
   deploy:
     name: Deploy to production
-    if: false  # Requires a live cluster
     needs: [docker, helm-lint]
     runs-on: ubuntu-latest
     environment: production
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: false
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -142,4 +142,3 @@ jobs:
             --set secret.DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
             --wait \
             --timeout 5m
-
