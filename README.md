@@ -1,18 +1,18 @@
 # springboot-k8s-demo
 
-> A production-grade Spring Boot 3.3 REST API containerised with Docker and deployed to Kubernetes via Helm — built to demonstrate clean architecture, CI/CD best practices, and cloud-native observability.
+> A production-grade Spring Boot 3.3 REST API containerised with Docker and deployed to Kubernetes via Helm â€” built to demonstrate clean architecture, CI/CD best practices, and cloud-native observability.
 
-[![CI/CD](https://github.com/YOUR_GITHUB_USERNAME/springboot-k8s-demo/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/YOUR_GITHUB_USERNAME/springboot-k8s-demo/actions/workflows/ci-cd.yml)
-[![codecov](https://codecov.io/gh/YOUR_GITHUB_USERNAME/springboot-k8s-demo/branch/main/graph/badge.svg)](https://codecov.io/gh/YOUR_GITHUB_USERNAME/springboot-k8s-demo)
+[![CI/CD](https://github.com/YOUR_GITHUB_USERNAME/springboot-k8s-demo/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Mandrupnicolai/springboot-k8s-demo/actions/workflows/ci-cd.yml)
+[![codecov](https://codecov.io/gh/Mandrupnicolai/springboot-k8s-demo/branch/main/graph/badge.svg)](https://codecov.io/gh/Mandrupnicolai/springboot-k8s-demo)
 [![Java](https://img.shields.io/badge/Java-21-007396?logo=java)](https://adoptium.net)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3-6DB33F?logo=springboot)](https://spring.io/projects/spring-boot)
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-ready-326CE5?logo=kubernetes)](https://kubernetes.io)
 [![Helm](https://img.shields.io/badge/Helm-chart-0F1689?logo=helm)](https://helm.sh)
-[![Docker](https://img.shields.io/badge/Docker-distroless-2496ED?logo=docker)](https://github.com/YOUR_GITHUB_USERNAME/springboot-k8s-demo/pkgs/container/springboot-k8s-demo)
+[![Docker](https://img.shields.io/badge/Docker-distroless-2496ED?logo=docker)](https://github.com/Mandrupnicolai/springboot-k8s-demo/pkgs/container/springboot-k8s-demo)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql)](https://www.postgresql.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/YOUR_GITHUB_USERNAME/springboot-k8s-demo)](https://github.com/YOUR_GITHUB_USERNAME/springboot-k8s-demo/commits/main)
-[![Open Issues](https://img.shields.io/github/issues/YOUR_GITHUB_USERNAME/springboot-k8s-demo)](https://github.com/YOUR_GITHUB_USERNAME/springboot-k8s-demo/issues)
+[![Last Commit](https://img.shields.io/github/last-commit/Mandrupnicolai/springboot-k8s-demo)](https://github.com/Mandrupnicolai/springboot-k8s-demo/commits/main)
+[![Open Issues](https://img.shields.io/github/issues/Mandrupnicolai/springboot-k8s-demo)](https://github.com/Mandrupnicolai/springboot-k8s-demo/issues)
 
 ---
 
@@ -31,12 +31,12 @@
 
 ## Features
 
-- **REST CRUD API** — Task management with full create / read / update / delete operations
+- **REST CRUD API** â€” Task management with full create / read / update / delete operations
 - **PostgreSQL** via Spring Data JPA with Flyway schema migrations
 - **Actuator** health probes wired to Kubernetes liveness / readiness endpoints
-- **Multi-stage distroless Docker image** — minimal attack surface, non-root runtime
-- **Helm chart** — fully parameterised, no hardcoded values
-- **GitHub Actions CI/CD** — build ? test ? coverage gate ? Docker push (GHCR) ? Helm lint
+- **Multi-stage distroless Docker image** â€” minimal attack surface, non-root runtime
+- **Helm chart** â€” fully parameterised, no hardcoded values
+- **GitHub Actions CI/CD** â€” build ? test ? coverage gate ? Docker push (GHCR) ? Helm lint
 - **JaCoCo** line coverage enforced at = 80 % in CI
 - **Codecov** integration for PR coverage comments
 
@@ -44,24 +44,24 @@
 
 ## Architecture
 +----------+     HTTP     +-----------------------------------------+
-¦  Client  ¦ ----------?  ¦  Ingress (nginx)                        ¦
+Â¦  Client  Â¦ ----------?  Â¦  Ingress (nginx)                        Â¦
 +----------+              +-----------------------------------------+
-¦
+Â¦
 +---------------?-------------+
-¦  TaskController  (:8080)    ¦
-¦  /api/v1/tasks              ¦
+Â¦  TaskController  (:8080)    Â¦
+Â¦  /api/v1/tasks              Â¦
 +-----------------------------+
-¦
+Â¦
 +---------------?-------------+
-¦  TaskService                ¦
+Â¦  TaskService                Â¦
 +-----------------------------+
-¦
+Â¦
 +---------------?-------------+
-¦  TaskRepository (JPA)       ¦
+Â¦  TaskRepository (JPA)       Â¦
 +-----------------------------+
-¦
+Â¦
 +---------------?-------------+
-¦  PostgreSQL  (:5432)        ¦
+Â¦  PostgreSQL  (:5432)        Â¦
 +-----------------------------+
 ---
 
@@ -91,7 +91,7 @@ mvn spring-boot:run -Dspring-boot.run.profiles=test
 
 ## Configuration
 
-All configuration is supplied via **environment variables** — no values are hardcoded.
+All configuration is supplied via **environment variables** â€” no values are hardcoded.
 
 | Variable | Default | Description |
 |---|---|---|
@@ -149,7 +149,7 @@ kubectl rollout status deployment/k8s-demo
 | **Build & Test** | Every push / PR | `mvn verify`, JaCoCo coverage gate (= 80 %) |
 | **Docker** | Push to `main` | Multi-arch image ? GHCR |
 | **Helm lint** | Every push / PR | `helm lint` + dry-run template |
-| **Deploy** | Disabled — requires `KUBECONFIG` secret | `helm upgrade --install` with manual approval gate |
+| **Deploy** | Disabled â€” requires `KUBECONFIG` secret | `helm upgrade --install` with manual approval gate |
 
 ---
 
@@ -175,4 +175,4 @@ Please open an issue before submitting a large pull request.
 
 ---
 
-*MIT License — see [LICENSE](LICENSE)*
+*MIT License â€” see [LICENSE](LICENSE)*
